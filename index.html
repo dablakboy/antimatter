@@ -9,12 +9,12 @@
   <style>
     :root {
       --bg: linear-gradient(135deg, #f0f2f5 0%, #e8ecef 100%);
-      --glass: rgba(255, 255, 255, 0.38);
-      --blur: blur(22px);
+      --glass: rgba(255, 255, 255, 0.35);
+      --blur: blur(20px);
       --border: 1px solid rgba(255, 255, 255, 0.5);
       --shadow: 0 20px 60px rgba(0,0,0,0.18);
       --accent: #007aff;
-      --scroll-speed: 40s;
+      --scroll-speed: 38s;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -87,20 +87,20 @@
     }
 
     .screenshots {
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
       gap: 20px;
-      animation: scroll-right var(--scroll-speed) linear infinite;
+      animation: scroll-left var(--scroll-speed) linear infinite;
       width: max-content;
       will-change: transform;
     }
 
     .screenshots:hover { animation-play-state: paused; }
 
-    @keyframes scroll-right {
+    @keyframes scroll-left {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(50%); }
+      100% { transform: translateX(-50%); }
     }
 
     .screenshot {
@@ -115,9 +115,7 @@
       transition: transform 0.25s ease;
     }
 
-    .screenshot:hover {
-      transform: scale(1.06);
-    }
+    .screenshot:hover { transform: scale(1.06); }
 
     .screenshot img {
       width: 100%;
@@ -153,14 +151,12 @@
       color: #8e8e93;
     }
 
-    /* ────────────────────────────────────────────────
-       ENLARGED MODAL
-    ──────────────────────────────────────────────── */
+    /* Enlarged modal */
     #enlarge-modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.78);
       backdrop-filter: blur(8px);
       z-index: 9999;
       align-items: center;
@@ -168,20 +164,17 @@
       padding: 20px;
     }
 
-    #enlarge-modal.show {
-      display: flex;
-    }
+    #enlarge-modal.show { display: flex; }
 
     .enlarge-card {
       background: var(--glass);
       backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
       border: 2px solid #000;
       border-radius: 36px;
-      box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.45);
       padding: 12px;
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 85vw;
+      max-height: 85vh;
       transform-style: preserve-3d;
       position: relative;
       overflow: hidden;
@@ -190,15 +183,17 @@
     .enlarge-img {
       width: 100%;
       height: auto;
+      max-height: 78vh;
       display: block;
       border-radius: 28px;
+      object-fit: contain;
     }
 
     .close-btn {
       position: absolute;
       top: 16px;
       right: 16px;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.65);
       color: white;
       border: none;
       border-radius: 50%;
@@ -217,7 +212,7 @@
       transform: scale(1.15);
     }
 
-    /* Desktop adjustments */
+    /* Desktop */
     @media (min-width: 768px) {
       .app-container { max-width: 1150px; padding: 30px 20px; }
       .app-card { padding: 32px 60px 24px; border-radius: 40px; }
@@ -231,7 +226,8 @@
       .download-btn { font-size: 1.45rem; padding: 16px 56px; margin-top: 2px; }
       .small-text { margin-top: 26px; font-size: 0.92rem; }
 
-      .enlarge-card { max-width: 85vw; padding: 16px; border-radius: 44px; }
+      .enlarge-card { max-width: 80vw; padding: 16px; border-radius: 44px; }
+      .enlarge-img { max-height: 75vh; }
       .close-btn { top: 20px; right: 20px; width: 48px; height: 48px; font-size: 1.6rem; }
     }
 
@@ -257,33 +253,8 @@
       </p>
 
       <div class="screenshots-wrapper">
-        <div class="screenshots">
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
-          </div>
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" alt="Screenshot 2">
-          </div>
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" alt="Screenshot 3">
-          </div>
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
-          </div>
-
-          <!-- Duplicate set for seamless loop -->
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
-          </div>
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" alt="Screenshot 2">
-          </div>
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" alt="Screenshot 3">
-          </div>
-          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
-          </div>
+        <div class="screenshots" id="screenshots-container">
+          <!-- Only the 4 real screenshots are added here – duplicate added in JS -->
         </div>
       </div>
 
@@ -303,7 +274,9 @@
   </div>
 
   <script>
-    // Vanilla Tilt for main card
+    // ────────────────────────────────────────────────
+    // 1. Vanilla Tilt for main card
+    // ────────────────────────────────────────────────
     VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
       max: 16,
       speed: 800,
@@ -313,14 +286,55 @@
       "max-glare": 0.3,
     });
 
-    // Screenshot click → enlarge
+    // ────────────────────────────────────────────────
+    // 2. Build carousel with only 4 images + duplicate for loop
+    // ────────────────────────────────────────────────
+    const screenshotsData = [
+      {
+        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM",
+        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM"
+      },
+      {
+        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI",
+        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI"
+      },
+      {
+        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0",
+        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0"
+      },
+      {
+        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4",
+        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4"
+      }
+    ];
+
+    const container = document.getElementById('screenshots-container');
+
+    // Add original 4
+    screenshotsData.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'screenshot';
+      div.innerHTML = `<img src="${item.thumb}" alt="Screenshot">`;
+      div.dataset.full = item.full;
+      container.appendChild(div);
+    });
+
+    // Add duplicate set for seamless loop
+    screenshotsData.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'screenshot';
+      div.innerHTML = `<img src="${item.thumb}" alt="Screenshot">`;
+      div.dataset.full = item.full;
+      container.appendChild(div);
+    });
+
+    // Attach click handlers
     document.querySelectorAll('.screenshot').forEach(el => {
       el.addEventListener('click', () => {
-        const fullSrc = el.getAttribute('data-full');
-        document.getElementById('enlarge-img').src = fullSrc;
+        document.getElementById('enlarge-img').src = el.dataset.full;
         document.getElementById('enlarge-modal').classList.add('show');
 
-        // Re-init tilt on the enlarged card every time it opens
+        // Re-init tilt for enlarged card
         VanillaTilt.init(document.querySelectorAll("#enlarge-modal [data-tilt]"), {
           max: 12,
           speed: 700,
@@ -332,18 +346,27 @@
       });
     });
 
-    // Close modal
+    // Close modal handlers
     document.getElementById('enlarge-modal').addEventListener('click', e => {
       if (e.target === document.getElementById('enlarge-modal') || e.target.classList.contains('close-btn')) {
         document.getElementById('enlarge-modal').classList.remove('show');
       }
     });
 
-    // Esc key to close
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         document.getElementById('enlarge-modal').classList.remove('show');
       }
+    });
+
+    // Init main card tilt
+    VanillaTilt.init(document.querySelectorAll(".app-card[data-tilt]"), {
+      max: 16,
+      speed: 800,
+      perspective: 1100,
+      scale: 1.03,
+      glare: true,
+      "max-glare": 0.3,
     });
   </script>
 
