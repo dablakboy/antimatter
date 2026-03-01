@@ -50,11 +50,27 @@
       border-radius: 28px;
       box-shadow: var(--shadow);
       padding: 28px 32px 24px;
+      position: relative; /* for absolute positioning of the how-to link */
     }
 
-    .app-card:hover {
-      box-shadow: 0 40px 100px rgba(0,0,0,0.25);
-      transform: scale(1.02);
+    .how-to-link {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      font-size: 0.95rem;
+      color: var(--accent);
+      text-decoration: underline;
+      cursor: pointer;
+      z-index: 10;
+      background: rgba(255,255,255,0.6);
+      padding: 4px 10px;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .how-to-link:hover {
+      background: rgba(255,255,255,0.9);
+      transform: scale(1.05);
     }
 
     .icon {
@@ -149,8 +165,10 @@
       color: #8e8e93;
     }
 
-    /* Enlarged modal */
-    #enlarge-modal {
+    /* ────────────────────────────────────────────────
+       MODALS (both screenshot + how-to)
+    ──────────────────────────────────────────────── */
+    .modal {
       display: none;
       position: fixed;
       inset: 0;
@@ -162,28 +180,40 @@
       padding: 20px;
     }
 
-    #enlarge-modal.show { display: flex; }
+    .modal.show { display: flex; }
 
-    .enlarge-card {
+    .modal-card {
       background: var(--glass);
       backdrop-filter: var(--blur);
       border: 2px solid #000;
       border-radius: 36px;
       box-shadow: 0 30px 90px rgba(0,0,0,0.45);
-      padding: 12px;
-      max-width: 85vw;
-      max-height: 85vh;
+      padding: 24px;
+      max-width: 90vw;
+      max-height: 90vh;
       position: relative;
-      overflow: hidden;
+      overflow-y: auto;
+      color: #1d1d1f;
     }
 
-    .enlarge-img {
-      width: 100%;
-      height: auto;
-      max-height: 78vh;
-      display: block;
-      border-radius: 28px;
-      object-fit: contain;
+    .modal-card h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .modal-card p, .modal-card ul {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .modal-card ul {
+      padding-left: 24px;
+    }
+
+    .modal-card li {
+      margin-bottom: 12px;
     }
 
     .close-btn {
@@ -209,7 +239,16 @@
       transform: scale(1.15);
     }
 
-    /* Desktop styles & tilt enable zone */
+    #enlarge-img {
+      width: 100%;
+      height: auto;
+      max-height: 75vh;
+      display: block;
+      border-radius: 28px;
+      object-fit: contain;
+    }
+
+    /* Desktop adjustments */
     @media (min-width: 768px) {
       .app-container { max-width: 1150px; padding: 30px 20px; }
       .app-card { padding: 32px 60px 24px; border-radius: 40px; }
@@ -223,8 +262,7 @@
       .download-btn { font-size: 1.45rem; padding: 16px 56px; margin-top: 2px; }
       .small-text { margin-top: 26px; font-size: 0.92rem; }
 
-      .enlarge-card { max-width: 80vw; padding: 16px; border-radius: 44px; }
-      .enlarge-img { max-height: 75vh; }
+      .modal-card { max-width: 80vw; padding: 32px; border-radius: 44px; }
       .close-btn { top: 20px; right: 20px; width: 48px; height: 48px; font-size: 1.6rem; }
     }
 
@@ -237,6 +275,8 @@
 
   <div class="app-container">
     <div class="app-card" id="main-card">
+
+      <div class="how-to-link" id="how-to-link">How To Install / Sideload</div>
 
       <div class="icon">
         <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/antimatter.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL2FudGltYXR0ZXIucG5nIiwiaWF0IjoxNzcyMzI5MTAyLCJleHAiOjIwODc2ODkxMDJ9.zCRu_sxfQyZuqPNbE49-RvnzLE6aYBeSs2aq3jUw2PQ" alt="Antimatter App Icon">
@@ -251,7 +291,7 @@
 
       <div class="screenshots-wrapper">
         <div class="screenshots" id="screenshots-container">
-          <!-- Screenshots populated by JS -->
+          <!-- Populated by JS -->
         </div>
       </div>
 
@@ -262,18 +302,40 @@
     </div>
   </div>
 
-  <!-- Enlarged modal -->
-  <div id="enlarge-modal">
-    <div class="enlarge-card" id="enlarge-tilt-card">
+  <!-- Screenshot enlarged modal -->
+  <div id="enlarge-modal" class="modal">
+    <div class="modal-card" id="enlarge-tilt-card">
       <button class="close-btn">×</button>
       <img id="enlarge-img" class="enlarge-img" src="" alt="Enlarged Screenshot">
     </div>
   </div>
 
+  <!-- How-to sideload modal -->
+  <div id="howto-modal" class="modal">
+    <div class="modal-card">
+      <button class="close-btn" id="howto-close">×</button>
+      <h2>How to Install / Sideload on iOS</h2>
+
+      <p><strong>Sideloading</strong> means installing apps (IPA files) on your iPhone/iPad outside of the official App Store — usually for tweaked, beta, or custom apps.</p>
+
+      <p>Here are the most popular & reliable methods in 2025/2026 (no jailbreak required for most):</p>
+
+      <ul>
+        <li><strong>Sideloadly</strong> — Free computer-based tool (Windows/Mac). Connect your device via USB, drag IPA → install. Uses your own Apple ID (free) or paid developer account for longer signing.</li>
+        <li><strong>AltStore / AltStore PAL</strong> — Classic & trusted. Requires a computer (Windows/Mac) or works directly on-device with PAL (EU only). Free, but apps refresh every 7 days unless you have a paid Apple Developer account ($99/year).</li>
+        <li><strong>Signulous / AppDB / Scarlet / TrollStore</strong> — Online signing services or on-device tools. Some are free, others paid (~$20/year). Very convenient, no computer needed for most.</li>
+        <li><strong>Esign / 3uTools / others</strong> — On-device signing apps (often shared via TestFlight or similar). Certificates expire frequently, so you may need to reinstall every few days/weeks.</li>
+        <li><strong>Developer / Enterprise Certificates</strong> — Paid services or leaked enterprise certs (risky — can be revoked anytime by Apple).</li>
+      </ul>
+
+      <p><strong>Recommendation for beginners:</strong> Start with <strong>Sideloadly</strong> (free, reliable) or <strong>Scarlet/Esign</strong> (on-device, easy).</p>
+
+      <p><strong>Important:</strong> Sideloading carries some risk — only install IPAs from trusted sources. Always back up your device first.</p>
+    </div>
+  </div>
+
   <script>
-    // ────────────────────────────────────────────────
-    // Build carousel with 4 images + duplicate for loop
-    // ────────────────────────────────────────────────
+    // Populate carousel (4 images + duplicate for seamless loop)
     const screenshotsData = [
       { thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM", full: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" },
       { thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI", full: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" },
@@ -282,8 +344,13 @@
     ];
 
     const container = document.getElementById('screenshots-container');
-
-    // Add original images
+    screenshotsData.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'screenshot';
+      div.innerHTML = `<img src="${item.thumb}" alt="Screenshot">`;
+      div.dataset.full = item.full;
+      container.appendChild(div);
+    });
     screenshotsData.forEach(item => {
       const div = document.createElement('div');
       div.className = 'screenshot';
@@ -292,56 +359,42 @@
       container.appendChild(div);
     });
 
-    // Add duplicate set for seamless infinite scroll
-    screenshotsData.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'screenshot';
-      div.innerHTML = `<img src="${item.thumb}" alt="Screenshot">`;
-      div.dataset.full = item.full;
-      container.appendChild(div);
-    });
-
-    // ────────────────────────────────────────────────
-    // Screenshot click → enlarge modal
-    // ────────────────────────────────────────────────
+    // Screenshot click → enlarge
     document.querySelectorAll('.screenshot').forEach(el => {
       el.addEventListener('click', () => {
         document.getElementById('enlarge-img').src = el.dataset.full;
         document.getElementById('enlarge-modal').classList.add('show');
-
-        // Only init tilt in modal if screen is large enough
-        if (window.innerWidth >= 768) {
-          VanillaTilt.init(document.querySelectorAll("#enlarge-modal [data-tilt]"), {
-            max: 12,
-            speed: 700,
-            perspective: 900,
-            scale: 1.04,
-            glare: true,
-            "max-glare": 0.25,
-          });
-        }
       });
     });
 
-    // Close modal
-    document.getElementById('enlarge-modal').addEventListener('click', e => {
-      if (e.target === document.getElementById('enlarge-modal') || e.target.classList.contains('close-btn')) {
-        document.getElementById('enlarge-modal').classList.remove('show');
-      }
+    // How-to modal open
+    document.getElementById('how-to-link').addEventListener('click', () => {
+      document.getElementById('howto-modal').classList.add('show');
+    });
+
+    // Close modals
+    document.querySelectorAll('.modal .close-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.modal').classList.remove('show');
+      });
+    });
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) modal.classList.remove('show');
+      });
     });
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        document.getElementById('enlarge-modal').classList.remove('show');
+        document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
       }
     });
 
-    // ────────────────────────────────────────────────
-    // Enable tilt ONLY on desktop / large screens
-    // ────────────────────────────────────────────────
+    // Tilt only on desktop
     function initTiltIfDesktop() {
       if (window.innerWidth >= 768) {
-        VanillaTilt.init(document.querySelectorAll("#main-card, .app-card"), {
+        VanillaTilt.init(document.querySelectorAll("#main-card, #enlarge-tilt-card"), {
           max: 16,
           speed: 800,
           perspective: 1100,
