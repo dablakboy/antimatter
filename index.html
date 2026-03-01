@@ -9,8 +9,8 @@
   <style>
     :root {
       --bg: linear-gradient(135deg, #f0f2f5 0%, #e8ecef 100%);
-      --glass: rgba(255, 255, 255, 0.35);
-      --blur: blur(20px);
+      --glass: rgba(255, 255, 255, 0.38);
+      --blur: blur(22px);
       --border: 1px solid rgba(255, 255, 255, 0.5);
       --shadow: 0 20px 60px rgba(0,0,0,0.18);
       --accent: #007aff;
@@ -75,24 +75,9 @@
       display: block;
     }
 
-    h1 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: #6e6e73;
-      margin-bottom: 16px;
-    }
-
-    .description {
-      font-size: 1.02rem;
-      line-height: 1.5;
-      margin-bottom: 18px;
-      color: #3c3c43;
-    }
+    h1 { font-size: 2.3rem; font-weight: 800; margin-bottom: 4px; }
+    .subtitle { font-size: 1.1rem; color: #6e6e73; margin-bottom: 16px; }
+    .description { font-size: 1.02rem; line-height: 1.5; margin-bottom: 18px; color: #3c3c43; }
 
     .screenshots-wrapper {
       overflow: hidden;
@@ -106,18 +91,16 @@
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       gap: 20px;
-      animation: scroll var(--scroll-speed) linear infinite;
+      animation: scroll-right var(--scroll-speed) linear infinite;
       width: max-content;
       will-change: transform;
     }
 
-    .screenshots:hover {
-      animation-play-state: paused;
-    }
+    .screenshots:hover { animation-play-state: paused; }
 
-    @keyframes scroll {
+    @keyframes scroll-right {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(50%); }
     }
 
     .screenshot {
@@ -128,6 +111,12 @@
       flex-shrink: 0;
       overflow: hidden;
       background: #fff;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .screenshot:hover {
+      transform: scale(1.06);
     }
 
     .screenshot img {
@@ -165,58 +154,85 @@
     }
 
     /* ────────────────────────────────────────────────
-       DESKTOP – wide + very compact vertically
+       ENLARGED MODAL
     ──────────────────────────────────────────────── */
+    #enlarge-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #enlarge-modal.show {
+      display: flex;
+    }
+
+    .enlarge-card {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 2px solid #000;
+      border-radius: 36px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+      padding: 12px;
+      max-width: 90vw;
+      max-height: 90vh;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .enlarge-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 28px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: rgba(0,0,0,0.9);
+      transform: scale(1.15);
+    }
+
+    /* Desktop adjustments */
     @media (min-width: 768px) {
-      .app-container {
-        max-width: 1150px;
-        padding: 30px 20px;
-      }
-
-      .app-card {
-        padding: 32px 60px 24px;
-        border-radius: 40px;
-      }
-
-      .icon {
-        width: 130px;
-        height: 130px;
-        margin-bottom: 14px;
-      }
-
+      .app-container { max-width: 1150px; padding: 30px 20px; }
+      .app-card { padding: 32px 60px 24px; border-radius: 40px; }
+      .icon { width: 130px; height: 130px; margin-bottom: 14px; }
       h1 { font-size: 3.0rem; margin-bottom: 4px; }
       .subtitle { font-size: 1.25rem; margin-bottom: 14px; }
-      .description {
-        font-size: 1.15rem;
-        line-height: 1.55;
-        max-width: 950px;
-        margin: 0 auto 18px;
-      }
+      .description { font-size: 1.15rem; line-height: 1.55; max-width: 950px; margin: 0 auto 18px; }
+      .screenshot { width: 135px; height: 270px; border-radius: 32px; }
+      .screenshots { gap: 30px; }
+      .screenshots-wrapper { margin: 12px 0 22px 0; }
+      .download-btn { font-size: 1.45rem; padding: 16px 56px; margin-top: 2px; }
+      .small-text { margin-top: 26px; font-size: 0.92rem; }
 
-      .screenshot {
-        width: 135px;
-        height: 270px;
-        border-radius: 32px;
-      }
-
-      .screenshots {
-        gap: 30px;
-      }
-
-      .screenshots-wrapper {
-        margin: 12px 0 22px 0;
-      }
-
-      .download-btn {
-        font-size: 1.45rem;
-        padding: 16px 56px;
-        margin-top: 2px;
-      }
-
-      .small-text {
-        margin-top: 26px;
-        font-size: 0.92rem;
-      }
+      .enlarge-card { max-width: 85vw; padding: 16px; border-radius: 44px; }
+      .close-btn { top: 20px; right: 20px; width: 48px; height: 48px; font-size: 1.6rem; }
     }
 
     @media (min-width: 1400px) {
@@ -242,30 +258,30 @@
 
       <div class="screenshots-wrapper">
         <div class="screenshots">
-          <div class="screenshot">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
           </div>
-          <div class="screenshot">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" alt="Screenshot 2">
           </div>
-          <div class="screenshot">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" alt="Screenshot 3">
           </div>
-          <div class="screenshot">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
           </div>
 
-          <!-- Duplicate for infinite loop -->
-          <div class="screenshot">
+          <!-- Duplicate set for seamless loop -->
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
           </div>
-          <div class="screenshot">
-            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpcGEtZmlsZXMvYW50aW1hdHRlci5pcGEiLCJpYXQiOjE3NzIzMjgxMzcsImV4cCI6MjA4NzY4ODEzN30.nGDSugTv8-Eh18Tpny0TTjBD4nueZbo9IHDA1ztnI5o" alt="Screenshot 2">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI">
+            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" alt="Screenshot 2">
           </div>
-          <div class="screenshot">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" alt="Screenshot 3">
           </div>
-          <div class="screenshot">
+          <div class="screenshot" data-full="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
           </div>
         </div>
@@ -278,7 +294,16 @@
     </div>
   </div>
 
+  <!-- Enlarged modal -->
+  <div id="enlarge-modal">
+    <div class="enlarge-card" data-tilt data-tilt-max="12" data-tilt-speed="700" data-tilt-perspective="900" data-tilt-scale="1.04">
+      <button class="close-btn">×</button>
+      <img id="enlarge-img" class="enlarge-img" src="" alt="Enlarged Screenshot">
+    </div>
+  </div>
+
   <script>
+    // Vanilla Tilt for main card
     VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
       max: 16,
       speed: 800,
@@ -286,6 +311,39 @@
       scale: 1.03,
       glare: true,
       "max-glare": 0.3,
+    });
+
+    // Screenshot click → enlarge
+    document.querySelectorAll('.screenshot').forEach(el => {
+      el.addEventListener('click', () => {
+        const fullSrc = el.getAttribute('data-full');
+        document.getElementById('enlarge-img').src = fullSrc;
+        document.getElementById('enlarge-modal').classList.add('show');
+
+        // Re-init tilt on the enlarged card every time it opens
+        VanillaTilt.init(document.querySelectorAll("#enlarge-modal [data-tilt]"), {
+          max: 12,
+          speed: 700,
+          perspective: 900,
+          scale: 1.04,
+          glare: true,
+          "max-glare": 0.25,
+        });
+      });
+    });
+
+    // Close modal
+    document.getElementById('enlarge-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('enlarge-modal') || e.target.classList.contains('close-btn')) {
+        document.getElementById('enlarge-modal').classList.remove('show');
+      }
+    });
+
+    // Esc key to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('enlarge-modal').classList.remove('show');
+      }
     });
   </script>
 
