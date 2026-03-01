@@ -50,8 +50,6 @@
       border-radius: 28px;
       box-shadow: var(--shadow);
       padding: 28px 32px 24px;
-      transform-style: preserve-3d;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
     }
 
     .app-card:hover {
@@ -175,7 +173,6 @@
       padding: 12px;
       max-width: 85vw;
       max-height: 85vh;
-      transform-style: preserve-3d;
       position: relative;
       overflow: hidden;
     }
@@ -212,7 +209,7 @@
       transform: scale(1.15);
     }
 
-    /* Desktop */
+    /* Desktop styles & tilt enable zone */
     @media (min-width: 768px) {
       .app-container { max-width: 1150px; padding: 30px 20px; }
       .app-card { padding: 32px 60px 24px; border-radius: 40px; }
@@ -239,35 +236,35 @@
 <body>
 
   <div class="app-container">
-    <div class="app-card" data-tilt data-tilt-max="16" data-tilt-speed="800" data-tilt-perspective="1100" data-tilt-scale="1.03">
+    <div class="app-card" id="main-card">
 
       <div class="icon">
         <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/antimatter.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL2FudGltYXR0ZXIucG5nIiwiaWF0IjoxNzcyMzI5MTAyLCJleHAiOjIwODc2ODkxMDJ9.zCRu_sxfQyZuqPNbE49-RvnzLE6aYBeSs2aq3jUw2PQ" alt="Antimatter App Icon">
       </div>
 
-      <h1>Antimatter</h1>
+      <h1>Anti-Matter</h1>
       <div class="subtitle">IPA Sideloading • Utility & Tools • v1.0</div>
 
       <p class="description">
-        Discover a powerful sideloading experience with Antimatter. Developers: Upload your ipa files to the community. Browse, install, and manage tweaked & custom IPAs effortlessly — all in one place.
+        Discover a powerful sideloading experience with Anti-Matter. Developers: Upload your ipa files to the community. Users: Browse, install, and manage tweaked & custom IPAs effortlessly — all in one place.
       </p>
 
       <div class="screenshots-wrapper">
         <div class="screenshots" id="screenshots-container">
-          <!-- Only the 4 real screenshots are added here – duplicate added in JS -->
+          <!-- Screenshots populated by JS -->
         </div>
       </div>
 
       <a href="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/ipa-files/antimatter.ipa?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpcGEtZmlsZXMvYW50aW1hdHRlci5pcGEiLCJpYXQiOjE3NzIzMjgxMzcsImV4cCI6MjA4NzY4ODEzN30.nGDSugTv8-Eh18Tpny0TTjBD4nueZbo9IHDA1ztnI5o"
          class="download-btn" download>
-        <i class="fas fa-cloud-arrow-down"></i> Download Antimatter IPA
+        <i class="fas fa-cloud-arrow-down"></i> Download Anti-Matter IPA
       </a>
     </div>
   </div>
 
   <!-- Enlarged modal -->
   <div id="enlarge-modal">
-    <div class="enlarge-card" data-tilt data-tilt-max="12" data-tilt-speed="700" data-tilt-perspective="900" data-tilt-scale="1.04">
+    <div class="enlarge-card" id="enlarge-tilt-card">
       <button class="close-btn">×</button>
       <img id="enlarge-img" class="enlarge-img" src="" alt="Enlarged Screenshot">
     </div>
@@ -275,42 +272,18 @@
 
   <script>
     // ────────────────────────────────────────────────
-    // 1. Vanilla Tilt for main card
-    // ────────────────────────────────────────────────
-    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-      max: 16,
-      speed: 800,
-      perspective: 1100,
-      scale: 1.03,
-      glare: true,
-      "max-glare": 0.3,
-    });
-
-    // ────────────────────────────────────────────────
-    // 2. Build carousel with only 4 images + duplicate for loop
+    // Build carousel with 4 images + duplicate for loop
     // ────────────────────────────────────────────────
     const screenshotsData = [
-      {
-        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM",
-        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM"
-      },
-      {
-        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI",
-        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI"
-      },
-      {
-        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0",
-        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0"
-      },
-      {
-        thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4",
-        full:  "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4"
-      }
+      { thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM", full: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" },
+      { thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI", full: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" },
+      { thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0", full: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" },
+      { thumb: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4", full: "https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" }
     ];
 
     const container = document.getElementById('screenshots-container');
 
-    // Add original 4
+    // Add original images
     screenshotsData.forEach(item => {
       const div = document.createElement('div');
       div.className = 'screenshot';
@@ -319,7 +292,7 @@
       container.appendChild(div);
     });
 
-    // Add duplicate set for seamless loop
+    // Add duplicate set for seamless infinite scroll
     screenshotsData.forEach(item => {
       const div = document.createElement('div');
       div.className = 'screenshot';
@@ -328,25 +301,29 @@
       container.appendChild(div);
     });
 
-    // Attach click handlers
+    // ────────────────────────────────────────────────
+    // Screenshot click → enlarge modal
+    // ────────────────────────────────────────────────
     document.querySelectorAll('.screenshot').forEach(el => {
       el.addEventListener('click', () => {
         document.getElementById('enlarge-img').src = el.dataset.full;
         document.getElementById('enlarge-modal').classList.add('show');
 
-        // Re-init tilt for enlarged card
-        VanillaTilt.init(document.querySelectorAll("#enlarge-modal [data-tilt]"), {
-          max: 12,
-          speed: 700,
-          perspective: 900,
-          scale: 1.04,
-          glare: true,
-          "max-glare": 0.25,
-        });
+        // Only init tilt in modal if screen is large enough
+        if (window.innerWidth >= 768) {
+          VanillaTilt.init(document.querySelectorAll("#enlarge-modal [data-tilt]"), {
+            max: 12,
+            speed: 700,
+            perspective: 900,
+            scale: 1.04,
+            glare: true,
+            "max-glare": 0.25,
+          });
+        }
       });
     });
 
-    // Close modal handlers
+    // Close modal
     document.getElementById('enlarge-modal').addEventListener('click', e => {
       if (e.target === document.getElementById('enlarge-modal') || e.target.classList.contains('close-btn')) {
         document.getElementById('enlarge-modal').classList.remove('show');
@@ -359,15 +336,24 @@
       }
     });
 
-    // Init main card tilt
-    VanillaTilt.init(document.querySelectorAll(".app-card[data-tilt]"), {
-      max: 16,
-      speed: 800,
-      perspective: 1100,
-      scale: 1.03,
-      glare: true,
-      "max-glare": 0.3,
-    });
+    // ────────────────────────────────────────────────
+    // Enable tilt ONLY on desktop / large screens
+    // ────────────────────────────────────────────────
+    function initTiltIfDesktop() {
+      if (window.innerWidth >= 768) {
+        VanillaTilt.init(document.querySelectorAll("#main-card, .app-card"), {
+          max: 16,
+          speed: 800,
+          perspective: 1100,
+          scale: 1.03,
+          glare: true,
+          "max-glare": 0.3,
+        });
+      }
+    }
+
+    initTiltIfDesktop();
+    window.addEventListener('resize', initTiltIfDesktop);
   </script>
 
 </body>
