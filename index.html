@@ -14,7 +14,7 @@
       --border: 1px solid rgba(255, 255, 255, 0.5);
       --shadow: 0 25px 70px rgba(0,0,0,0.18);
       --accent: #007aff;
-      --scroll-speed: 35s;
+      --scroll-speed: 40s; /* Slightly slower for better viewing */
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -32,7 +32,7 @@
     .app-container {
       width: 92%;
       max-width: 460px;
-      padding: 50px 20px;
+      padding: 40px 15px;
       text-align: center;
       animation: fadeIn 1.4s ease-out;
     }
@@ -47,25 +47,24 @@
       backdrop-filter: var(--blur);
       -webkit-backdrop-filter: var(--blur);
       border: var(--border);
-      border-radius: 40px;
+      border-radius: 36px;
       box-shadow: var(--shadow);
-      padding: 45px 30px;
+      padding: 40px 25px;
       transform-style: preserve-3d;
       transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s;
     }
 
     .app-card:hover {
       box-shadow: 0 50px 120px rgba(0,0,0,0.28);
-      transform: scale(1.035);
+      transform: scale(1.03);
     }
 
     .icon {
       width: 140px;
       height: 140px;
-      background: #ffffff;
-      border-radius: 36px;
-      margin: 0 auto 28px;
+      margin: 0 auto 24px;
       overflow: hidden;
+      border-radius: 32px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
 
@@ -77,33 +76,36 @@
     }
 
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #6e6e73;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
     }
 
     .description {
-      font-size: 1.15rem;
-      line-height: 1.65;
-      margin-bottom: 45px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 32px;
       color: #3c3c43;
     }
 
+    /* Carousel – only 4 screenshots visible, infinite loop */
     .screenshots-wrapper {
       overflow: hidden;
-      margin-bottom: 50px;
-      padding: 15px 0;
+      margin: 20px 0 30px 0;
+      padding: 10px 0;
       position: relative;
     }
 
     .screenshots {
-      display: flex;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
       gap: 20px;
       animation: scroll var(--scroll-speed) linear infinite;
       width: max-content;
@@ -115,7 +117,7 @@
     }
 
     @keyframes scroll {
-      0% { transform: translateX(0); }
+      0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
@@ -139,60 +141,51 @@
     .download-btn {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       background: var(--accent);
       color: white;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      padding: 18px 50px;
+      padding: 16px 48px;
       border-radius: 999px;
       text-decoration: none;
       box-shadow: 0 12px 35px rgba(0,122,255,0.35);
       transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-top: 10px;
     }
 
     .download-btn:hover {
-      transform: translateY(-6px) scale(1.07);
+      transform: translateY(-5px) scale(1.06);
       box-shadow: 0 25px 60px rgba(0,122,255,0.55);
     }
 
     .small-text {
-      margin-top: 50px;
-      font-size: 0.95rem;
+      margin-top: 40px;
+      font-size: 0.9rem;
       color: #8e8e93;
     }
 
-    /* Desktop: Make card more rectangular / wider */
+    /* Desktop – wider rectangular card, larger horizontal carousel */
     @media (min-width: 768px) {
       .app-container {
-        max-width: 720px;
+        max-width: 760px;
         padding: 60px 30px;
       }
 
       .app-card {
         padding: 50px 60px;
-        border-radius: 48px;
+        border-radius: 44px;
       }
 
       .icon {
         width: 160px;
         height: 160px;
-        border-radius: 44px;
+        border-radius: 40px;
       }
 
-      h1 {
-        font-size: 3.2rem;
-      }
-
-      .subtitle {
-        font-size: 1.4rem;
-      }
-
-      .description {
-        font-size: 1.25rem;
-        max-width: 80%;
-        margin: 0 auto 50px;
-      }
+      h1 { font-size: 3.2rem; }
+      .subtitle { font-size: 1.35rem; }
+      .description { font-size: 1.25rem; max-width: 85%; margin: 0 auto 40px; }
 
       .screenshot {
         width: 140px;
@@ -201,12 +194,16 @@
       }
 
       .screenshots {
-        gap: 28px;
+        gap: 32px;
       }
 
       .download-btn {
         font-size: 1.5rem;
         padding: 20px 60px;
+      }
+
+      .screenshots-wrapper {
+        margin: 30px 0 40px 0;
       }
     }
   </style>
@@ -214,7 +211,7 @@
 <body>
 
   <div class="app-container">
-    <div class="app-card" data-tilt data-tilt-max="20" data-tilt-speed="700" data-tilt-perspective="1400" data-tilt-scale="1.06">
+    <div class="app-card" data-tilt data-tilt-max="18" data-tilt-speed="800" data-tilt-perspective="1200" data-tilt-scale="1.04">
 
       <div class="icon">
         <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/antimatter.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL2FudGltYXR0ZXIucG5nIiwiaWF0IjoxNzcyMzI5MTAyLCJleHAiOjIwODc2ODkxMDJ9.zCRu_sxfQyZuqPNbE49-RvnzLE6aYBeSs2aq3jUw2PQ" alt="Antimatter App Icon">
@@ -227,9 +224,10 @@
         Discover a powerful sideloading experience with Antimatter. Developers: Upload your ipa files to the community. Browse, install, and manage tweaked & custom IPAs effortlessly — all in one place.
       </p>
 
+      <!-- Carousel: only 4 screenshots + duplicate for seamless loop -->
       <div class="screenshots-wrapper">
         <div class="screenshots">
-          <!-- First set -->
+          <!-- Original 4 screenshots -->
           <div class="screenshot">
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
           </div>
@@ -243,25 +241,23 @@
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
           </div>
 
-          <!-- Duplicate for infinite loop -->
-          <div class="screenshots-duplicate">
-            <div class="screenshot">
-              <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
-            </div>
-            <div class="screenshot">
-              <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" alt="Screenshot 2">
-            </div>
-            <div class="screenshot">
-              <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" alt="Screenshot 3">
-            </div>
-            <div class="screenshot">
-              <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
-            </div>
+          <!-- Exact duplicate for seamless infinite loop (hidden visually at start/end) -->
+          <div class="screenshot">
+            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
+          </div>
+          <div class="screenshot">
+            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output_1.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dF8xLlBORyIsImlhdCI6MTc3MjMyOTY4MCwiZXhwIjoyMDg3Njg5NjgwfQ.Orr2lvvcdUCYlXlQh74NsHrGGYQix-I3WoNM8djwZCI" alt="Screenshot 2">
+          </div>
+          <div class="screenshot">
+            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQgKDIpLnBuZyIsImlhdCI6MTc3MjMyOTgwMCwiZXhwIjoyMDg3Njg5ODAwfQ.VUEc2poDfcsiptTq5sVBrjpJDUAnqVS5BDcoTzeM5o0" alt="Screenshot 3">
+          </div>
+          <div class="screenshot">
+            <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
           </div>
         </div>
       </div>
 
-      <a href="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/ipa-files/antimatter.ipa?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpcGEtZmlsZXMvYW50aW1hdHRlci5pcGEiLCJpYXQiOjE3NzIzMjgxMzcsImV4cCI6MjA4NzY4ODEzN30.nGDSugTv8-Eh18Tpny0TTjBD4nueZbo9IHDA1ztnI5o" 
+      <a href="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/ipa-files/antimatter.ipa?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpcGEtZmlsZXMvYW50aW1hdHRlci5pcGEiLCJpYXQiOjE3NzIzMjgxMzcsImV4cCI6MjA4NzY4ODEzN30.nGDSugTv8-Eh18Tpny0TTjBD4nueZbo9IHDA1ztnI5o"
          class="download-btn" download>
         <i class="fas fa-cloud-arrow-down"></i> Download Antimatter IPA
       </a>
