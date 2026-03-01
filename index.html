@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Antimatter — Download IPA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <!-- Vanilla Tilt.js for card hover tilt -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <!-- Three.js for 3D floating model -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
   <style>
     :root {
       --bg: linear-gradient(135deg, #f0f2f5 0%, #e8ecef 100%);
@@ -65,19 +62,18 @@
     .icon {
       width: 140px;
       height: 140px;
-      margin: 0 auto 28px;
-      position: relative;
       background: #ffffff;
       border-radius: 36px;
+      margin: 0 auto 28px;
       overflow: hidden;
       box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
 
-    #icon-canvas {
+    .icon img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
       display: block;
-      border-radius: 36px;
     }
 
     h1 {
@@ -100,37 +96,38 @@
     }
 
     .screenshots-wrapper {
-  overflow: hidden;
-  margin: 20px 0 30px 0;          /* reduced vertical space */
-  padding: 10px 0;                /* less padding */
-  position: relative;
-}
+      overflow: hidden;
+      margin-bottom: 50px;
+      padding: 15px 0;
+      position: relative;
+    }
 
-   .screenshots {
-  display: flex;
-  flex-direction: row;            /* enforce horizontal */
-  flex-wrap: nowrap;              /* prevent wrapping to new line */
-  gap: 20px;
-  animation: scroll var(--scroll-speed) linear infinite;
-  width: max-content;
-  will-change: transform;
-}
+    .screenshots {
+      display: flex;
+      gap: 20px;
+      animation: scroll var(--scroll-speed) linear infinite;
+      width: max-content;
+      will-change: transform;
+    }
 
+    .screenshots:hover {
+      animation-play-state: paused;
+    }
 
     @keyframes scroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-.screenshot {
-  width: 110px;
-  height: 220px;                  /* keep aspect ~ iPhone ratio */
-  border-radius: 28px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  flex-shrink: 0;
-  overflow: hidden;
-  background: #fff;
-}
+    .screenshot {
+      width: 110px;
+      height: 220px;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      flex-shrink: 0;
+      overflow: hidden;
+      background: #fff;
+    }
 
     .screenshot img {
       width: 100%;
@@ -140,7 +137,6 @@
     }
 
     .download-btn {
-      margin-top: 10px;
       display: inline-flex;
       align-items: center;
       gap: 14px;
@@ -166,7 +162,7 @@
       color: #8e8e93;
     }
 
-    /* Desktop: wider rectangular layout */
+    /* Desktop: Make card more rectangular / wider */
     @media (min-width: 768px) {
       .app-container {
         max-width: 720px;
@@ -220,23 +216,17 @@
   <div class="app-container">
     <div class="app-card" data-tilt data-tilt-max="20" data-tilt-speed="700" data-tilt-perspective="1400" data-tilt-scale="1.06">
 
-      <!-- 3D Floating Atom Model -->
       <div class="icon">
-        <canvas id="icon-canvas"></canvas>
-        <!-- Fallback static icon if Three.js fails to load -->
-        <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/antimatter.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL2FudGltYXR0ZXIucG5nIiwiaWF0IjoxNzcyMzI5MTAyLCJleHAiOjIwODc2ODkxMDJ9.zCRu_sxfQyZuqPNbE49-RvnzLE6aYBeSs2aq3jUw2PQ" 
-             alt="Antimatter App Icon (fallback)" 
-             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none;">
+        <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/antimatter.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL2FudGltYXR0ZXIucG5nIiwiaWF0IjoxNzcyMzI5MTAyLCJleHAiOjIwODc2ODkxMDJ9.zCRu_sxfQyZuqPNbE49-RvnzLE6aYBeSs2aq3jUw2PQ" alt="Antimatter App Icon">
       </div>
 
       <h1>Antimatter</h1>
       <div class="subtitle">IPA Sideloading • Utility & Tools • v1.0</div>
 
       <p class="description">
-        Discover a powerful sideloading experience with Antimatter. Browse, install, and manage tweaked & custom IPAs effortlessly. Featuring a sleek interface, easy navigation, and the latest community apps — all in one place.
+        Discover a powerful sideloading experience with Antimatter. Developers: Upload your ipa files to the community. Browse, install, and manage tweaked & custom IPAs effortlessly — all in one place.
       </p>
 
-      <!-- Auto-scrolling screenshots carousel -->
       <div class="screenshots-wrapper">
         <div class="screenshots">
           <!-- First set -->
@@ -253,7 +243,7 @@
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
           </div>
 
-          <!-- Duplicate set for seamless infinite loop -->
+          <!-- Duplicate for infinite loop -->
           <div class="screenshots-duplicate">
             <div class="screenshot">
               <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
@@ -275,13 +265,10 @@
          class="download-btn" download>
         <i class="fas fa-cloud-arrow-down"></i> Download Antimatter IPA
       </a>
-
-      <div class="small-text">Hosted on GitHub Pages • Sideloading for educational & personal use</div>
     </div>
   </div>
 
   <script>
-    // Vanilla Tilt for card hover
     VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
       max: 20,
       speed: 700,
@@ -290,85 +277,6 @@
       glare: true,
       "max-glare": 0.35,
     });
-
-    // Three.js Floating Atom Model
-    const canvas = document.getElementById('icon-canvas');
-    if (canvas) {
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xffffff); // White background to match icon
-
-      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      camera.position.z = 5;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-
-      // Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambientLight);
-      const pointLight = new THREE.PointLight(0x00aaff, 1.2, 50);
-      pointLight.position.set(3, 3, 3);
-      scene.add(pointLight);
-
-      // Nucleus
-      const nucleusGeo = new THREE.SphereGeometry(0.6, 32, 32);
-      const nucleusMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.3, roughness: 0.4 });
-      const nucleus = new THREE.Mesh(nucleusGeo, nucleusMat);
-      scene.add(nucleus);
-
-      // Orbiting electrons
-      const electrons = [];
-      const electronColors = [0xff3366, 0x33ff99, 0x3366ff];
-      for (let i = 0; i < 3; i++) {
-        const geo = new THREE.SphereGeometry(0.18, 16, 16);
-        const mat = new THREE.MeshStandardMaterial({
-          color: electronColors[i],
-          emissive: electronColors[i],
-          emissiveIntensity: 0.4
-        });
-        const electron = new THREE.Mesh(geo, mat);
-        electron.userData = {
-          angle: i * (Math.PI * 2 / 3),
-          radius: 1.8 + i * 0.3,
-          speed: 1 + i * 0.4
-        };
-        scene.add(electron);
-        electrons.push(electron);
-      }
-
-      // Handle resize
-      function onResize() {
-        const rect = canvas.getBoundingClientRect();
-        camera.aspect = rect.width / rect.height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(rect.width, rect.height);
-      }
-      window.addEventListener('resize', onResize);
-
-      // Animation loop
-      let time = 0;
-      function animate() {
-        requestAnimationFrame(animate);
-        time += 0.016;
-
-        nucleus.rotation.y += 0.003;
-
-        electrons.forEach(e => {
-          e.userData.angle += 0.02 * e.userData.speed;
-          const x = Math.cos(e.userData.angle) * e.userData.radius;
-          const z = Math.sin(e.userData.angle) * e.userData.radius;
-          e.position.set(x, Math.sin(time * 1.5 + e.userData.angle * 2) * 0.4, z);
-          e.rotation.y += 0.01;
-        });
-
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      // Hide fallback image if canvas is working
-      canvas.nextElementSibling.style.display = 'none';
-    }
   </script>
 
 </body>
