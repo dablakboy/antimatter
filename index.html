@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Antimatter — Download IPA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <!-- Vanilla Tilt.js for 3D tilt hover -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <style>
     :root {
@@ -15,7 +14,7 @@
       --border: 1px solid rgba(255, 255, 255, 0.5);
       --shadow: 0 25px 70px rgba(0,0,0,0.18);
       --accent: #007aff;
-      --scroll-speed: 35s; /* Adjust for faster/slower auto-scroll */
+      --scroll-speed: 35s;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -31,8 +30,8 @@
     }
 
     .app-container {
-      max-width: 460px;
       width: 92%;
+      max-width: 460px;
       padding: 50px 20px;
       text-align: center;
       animation: fadeIn 1.4s ease-out;
@@ -96,7 +95,6 @@
       color: #3c3c43;
     }
 
-    /* Auto-scrolling infinite carousel */
     .screenshots-wrapper {
       overflow: hidden;
       margin-bottom: 50px;
@@ -108,21 +106,17 @@
       display: flex;
       gap: 20px;
       animation: scroll var(--scroll-speed) linear infinite;
-      width: max-content; /* Allows it to be wider than viewport */
-      will-change: transform; /* GPU acceleration */
+      width: max-content;
+      will-change: transform;
     }
 
     .screenshots:hover {
-      animation-play-state: paused; /* Pause on hover */
+      animation-play-state: paused;
     }
 
     @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .screenshot {
@@ -140,13 +134,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    /* Duplicate set for seamless loop */
-    .screenshots-duplicate {
-      display: flex;
-      gap: 20px;
-      flex-shrink: 0;
     }
 
     .download-btn {
@@ -174,6 +161,54 @@
       font-size: 0.95rem;
       color: #8e8e93;
     }
+
+    /* Desktop: Make card more rectangular / wider */
+    @media (min-width: 768px) {
+      .app-container {
+        max-width: 720px;
+        padding: 60px 30px;
+      }
+
+      .app-card {
+        padding: 50px 60px;
+        border-radius: 48px;
+      }
+
+      .icon {
+        width: 160px;
+        height: 160px;
+        border-radius: 44px;
+      }
+
+      h1 {
+        font-size: 3.2rem;
+      }
+
+      .subtitle {
+        font-size: 1.4rem;
+      }
+
+      .description {
+        font-size: 1.25rem;
+        max-width: 80%;
+        margin: 0 auto 50px;
+      }
+
+      .screenshot {
+        width: 140px;
+        height: 280px;
+        border-radius: 36px;
+      }
+
+      .screenshots {
+        gap: 28px;
+      }
+
+      .download-btn {
+        font-size: 1.5rem;
+        padding: 20px 60px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -189,10 +224,9 @@
       <div class="subtitle">IPA Sideloading • Utility & Tools • v1.0</div>
 
       <p class="description">
-        Discover a powerful sideloading experience with Antimatter. Developers: Upload your ipa files to the community. Browse, install, and manage tweaked & custom IPAs effortlessly — all in one place.
+        Discover a powerful sideloading experience with Antimatter. Browse, install, and manage tweaked & custom IPAs effortlessly. Featuring a sleek interface, easy navigation, and the latest community apps — all in one place.
       </p>
 
-      <!-- Auto-scrolling screenshots (duplicated for infinite loop) -->
       <div class="screenshots-wrapper">
         <div class="screenshots">
           <!-- First set -->
@@ -209,7 +243,7 @@
             <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/unnamed.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3VubmFtZWQucG5nIiwiaWF0IjoxNzcyMzI5Njk4LCJleHAiOjIwODc2ODk2OTh9.9AfBQSijz6ByC-MLknwxAkDDiWcP8MAXYxYW_R1i9e4" alt="Screenshot 4">
           </div>
 
-          <!-- Duplicate set for seamless infinite loop -->
+          <!-- Duplicate for infinite loop -->
           <div class="screenshots-duplicate">
             <div class="screenshot">
               <img src="https://ehkujnkiftntxyeqnxcz.supabase.co/storage/v1/object/sign/app-assets/photo-output.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTYxMzVjMi02ZGQyLTQ1ZDYtYjM2YS1mOTdhZjQzYmRkZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcHAtYXNzZXRzL3Bob3RvLW91dHB1dC5QTkciLCJpYXQiOjE3NzIzMjk2NDIsImV4cCI6MjA4NzY4OTY0Mn0.MTY03uUZHT0ReaitIF1Eje-VI7AQ9QIwwQPJ8l2IfJM" alt="Screenshot 1">
