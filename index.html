@@ -100,38 +100,37 @@
     }
 
     .screenshots-wrapper {
-      overflow: hidden;
-      margin-bottom: 50px;
-      padding: 15px 0;
-      position: relative;
-    }
+  overflow: hidden;
+  margin: 20px 0 30px 0;          /* reduced vertical space */
+  padding: 10px 0;                /* less padding */
+  position: relative;
+}
 
-    .screenshots {
-      display: flex;
-      gap: 20px;
-      animation: scroll var(--scroll-speed) linear infinite;
-      width: max-content;
-      will-change: transform;
-    }
+   .screenshots {
+  display: flex;
+  flex-direction: row;            /* enforce horizontal */
+  flex-wrap: nowrap;              /* prevent wrapping to new line */
+  gap: 20px;
+  animation: scroll var(--scroll-speed) linear infinite;
+  width: max-content;
+  will-change: transform;
+}
 
-    .screenshots:hover {
-      animation-play-state: paused;
-    }
 
     @keyframes scroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    .screenshot {
-      width: 110px;
-      height: 220px;
-      border-radius: 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      flex-shrink: 0;
-      overflow: hidden;
-      background: #fff;
-    }
+.screenshot {
+  width: 110px;
+  height: 220px;                  /* keep aspect ~ iPhone ratio */
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #fff;
+}
 
     .screenshot img {
       width: 100%;
@@ -141,6 +140,7 @@
     }
 
     .download-btn {
+      margin-top: 10px;
       display: inline-flex;
       align-items: center;
       gap: 14px;
